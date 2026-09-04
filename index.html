@@ -16,15 +16,38 @@
         AFRAME.registerComponent('quest-controls-handler', {
             init: function () {
                 var el = this.el;
+                el.addEventListener('triggerdown', function (evt) {});
+            }
+        });
 
-                // Primary trigger or grip actions for interaction
-                el.addEventListener('triggerdown', function (evt) {
-                    // Add custom raycast or interaction logic here
+        // Teleport marker logic
+        AFRAME.registerComponent('teleport-marker', {
+            init: function () {
+                this.el.addEventListener('click', () => {
+                    const rig = document.querySelector('#rig');
+                    const pos = this.el.getAttribute('position');
+                    rig.setAttribute('position', {x: pos.x, y: rig.getAttribute('position').y, z: pos.z});
                 });
+            }
+        });
 
-                // Thumbstick movement navigation support
-                el.addEventListener('thumbstickmoved', function (evt) {
-                    // Handled via movement-controls / oculus-touch-controls
+        // Keyboard elevation controls for E (up) and Q (down) on the Y axis
+        AFRAME.registerComponent('keyboard-elevation', {
+            tick: function (time, timeDelta) {
+                var rig = document.querySelector('#rig');
+                if (!rig) return;
+                var speed = 0.005 * timeDelta;
+                if (this.moveUp) rig.object3D.position.y += speed;
+                if (this.moveDown) rig.object3D.position.y -= speed;
+            },
+            init: function () {
+                window.addEventListener('keydown', (e) => {
+                    if (e.key.toLowerCase() === 'e') this.moveUp = true;
+                    if (e.key.toLowerCase() === 'q') this.moveDown = true;
+                });
+                window.addEventListener('keyup', (e) => {
+                    if (e.key.toLowerCase() === 'e') this.moveUp = false;
+                    if (e.key.toLowerCase() === 'q') this.moveDown = false;
                 });
             }
         });
@@ -54,7 +77,10 @@
 
         <!-- Player Rig -->
         <a-entity id="rig" position="0 0 0">
-            <a-camera id="camera" position="0 1.6 0" look-controls="pointerLockEnabled: false"></a-camera>
+            <a-camera id="camera" position="0 1.6 0" look-controls="pointerLockEnabled: false" keyboard-elevation>
+                <!-- Add cursor to allow clicking teleport markers on desktop -->
+                <a-cursor raycaster="objects: .clickable" color="#F39C12"></a-cursor>
+            </a-camera>
             <a-entity id="leftHand" oculus-touch-controls="hand: left; model: true;" laser-controls="hand: left"
                 raycaster="objects: .clickable; far: 10" quest-controls-handler></a-entity>
             <a-entity id="rightHand" oculus-touch-controls="hand: right; model: true;" laser-controls="hand: right"
@@ -197,18 +223,19 @@
         <a-box position="7 1 4" width="0.6" height="2" depth="1.2" mixin="wood-mat"></a-box>
 
         <!-- NAVIGATION MARKERS -->
-        <a-cylinder class="clickable" position="-4.5 0.05 3" radius="0.3" height="0.02" color="#F39C12"
-            opacity="0.6"></a-cylinder>
-        <a-cylinder class="clickable" position="-4.5 0.05 -1" radius="0.3" height="0.02" color="#F39C12"
-            opacity="0.6"></a-cylinder>
-        <a-cylinder class="clickable" position="-4.5 0.05 -5" radius="0.3" height="0.02" color="#F39C12"
-            opacity="0.6"></a-cylinder>
-        <a-cylinder class="clickable" position="3 0.05 -4.5" radius="0.3" height="0.02" color="#F39C12"
-            opacity="0.6"></a-cylinder>
-        <a-cylinder class="clickable" position="3 0.05 0" radius="0.3" height="0.02" color="#F39C12"
-            opacity="0.6"></a-cylinder>
-        <a-cylinder class="clickable" position="3 0.05 4.5" radius="0.3" height="0.02" color="#F39C12"
-            opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" teleport-marker position="-4.5 0.05 3" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" teleport-marker position="-4.5 0.05 -1" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" teleport-marker position="-4.5 0.05 -5" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" teleport-marker position="3 0.05 -4.5" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" teleport-marker position="3 0.05 0" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" teleport-marker position="3 0.05 4.5" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
+
+        <!-- Autumn House Navigation Markers -->
+        <a-cylinder class="clickable" teleport-marker position="10 0.05 0" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" teleport-marker position="15 0.05 0" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" teleport-marker position="18 0.05 0" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" teleport-marker position="20 0.05 0" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" teleport-marker position="22 0.05 1" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
 
         <!-- EXTERNAL ENVIRONMENT & MODELS -->
         <!-- Grass Ground -->
@@ -217,6 +244,34 @@
 
         <!-- Autumn House (Placed next to the flat on the East side) -->
         <a-entity gltf-model="#autumn-house" position="20 0 0" scale="1 1 1" rotation="0 -90 0">
+        </a-entity>
+
+        <!-- Autumn House Aesthetic Interior Setup -->
+        <a-entity id="autumn-interior" position="20 0 0">
+            <!-- Warm Interior Lights to fix dark ceiling/models -->
+            <a-light type="point" color="#FFAA55" intensity="1.5" position="0 2.5 1" distance="15"></a-light>
+            <a-light type="point" color="#FFDAB9" intensity="1.0" position="0 2.5 4" distance="10"></a-light>
+            
+            <!-- Aesthetic Area Rug -->
+            <a-plane position="0 0.02 1" rotation="-90 0 0" width="5" height="7" material="color: #C0392B; roughness: 1;"></a-plane>
+            <a-plane position="0 0.03 1" rotation="-90 0 0" width="4.5" height="6.5" material="color: #E74C3C; roughness: 1;"></a-plane>
+            
+            <!-- Glowing Accent Lamps (Spheres) -->
+            <a-sphere position="-1.5 0.3 -1" radius="0.3" material="color: #FFB6C1; emissive: #FF69B4; emissiveIntensity: 0.8"></a-sphere>
+            <a-sphere position="1.5 0.2 2.5" radius="0.2" material="color: #87CEFA; emissive: #00BFFF; emissiveIntensity: 0.7"></a-sphere>
+
+            <!-- Minimalist Coffee Table Setup -->
+            <a-cylinder position="0 0.4 1" radius="0.9" height="0.05" material="color: #FFF; metalness: 0.8; roughness: 0.1"></a-cylinder>
+            <a-cylinder position="0 0.2 1" radius="0.2" height="0.4" mixin="wood-mat"></a-cylinder>
+            
+            <!-- Aesthetic Floating Fireflies/Dust -->
+            <a-entity position="0 1 1">
+                <a-sphere position="0.8 1 -1" radius="0.03" material="color: #FFF; emissive: #FFD700; emissiveIntensity: 1"></a-sphere>
+                <a-sphere position="-1 0.5 1.5" radius="0.02" material="color: #FFF; emissive: #FFD700; emissiveIntensity: 1"></a-sphere>
+                <a-sphere position="1.2 1.5 0.5" radius="0.02" material="color: #FFF; emissive: #FFD700; emissiveIntensity: 1"></a-sphere>
+                <a-sphere position="-0.5 2 2" radius="0.03" material="color: #FFF; emissive: #FFD700; emissiveIntensity: 1"></a-sphere>
+                <a-sphere position="0.2 0.8 -0.5" radius="0.02" material="color: #FFF; emissive: #FFD700; emissiveIntensity: 1"></a-sphere>
+            </a-entity>
         </a-entity>
 
     </a-scene>
