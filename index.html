@@ -1,188 +1,219 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title>3 BHK Flat Tour - A-Frame</title>
     <meta name="description" content="3 BHK Flat Architectural Walkthrough for Meta Quest 3S">
     <!-- A-Frame Library -->
     <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
     <!-- A-Frame Environment Component -->
-    <script src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>
-    
+    <script
+        src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>
+
     <script>
-      // Component to handle teleports/movement with Meta Quest 3S controllers
-      AFRAME.registerComponent('quest-controls-handler', {
-        init: function () {
-          var el = this.el;
-          
-          // Primary trigger or grip actions for interaction
-          el.addEventListener('triggerdown', function (evt) {
-            // Add custom raycast or interaction logic here
-          });
-          
-          // Thumbstick movement navigation support
-          el.addEventListener('thumbstickmoved', function (evt) {
-            // Handled via movement-controls / oculus-touch-controls
-          });
-        }
-      });
+        // Component to handle teleports/movement with Meta Quest 3S controllers
+        AFRAME.registerComponent('quest-controls-handler', {
+            init: function () {
+                var el = this.el;
+
+                // Primary trigger or grip actions for interaction
+                el.addEventListener('triggerdown', function (evt) {
+                    // Add custom raycast or interaction logic here
+                });
+
+                // Thumbstick movement navigation support
+                el.addEventListener('thumbstickmoved', function (evt) {
+                    // Handled via movement-controls / oculus-touch-controls
+                });
+            }
+        });
     </script>
-  </head>
-  <body>
-    <a-scene environment="preset: contact; skyType: atmosphere; lighting: none;" renderer="antialias: true; colorManagement: true;">
-      
-      <!-- Asset Management -->
-      <a-assets>
-        <!-- Materials -->
-        <a-mixin id="wall-mat" material="color: #E8E5DF; roughness: 0.9;"></a-mixin>
-        <a-mixin id="floor-mat" material="color: #4A3C31; roughness: 0.5; metalness: 0.1;"></a-mixin>
-        <a-mixin id="ceiling-mat" material="color: #FAFAFA; roughness: 1.0; side: double;"></a-mixin>
-        <a-mixin id="wood-mat" material="color: #6B4E31; roughness: 0.7;"></a-mixin>
-        <a-mixin id="fabric-mat" material="color: #5C6E7D; roughness: 0.9;"></a-mixin>
-        <a-mixin id="accent-mat" material="color: #E6A861; roughness: 0.4;"></a-mixin>
-        <a-mixin id="glass-mat" material="color: #A8D5E2; opacity: 0.4; transparent: true; roughness: 0.1; metalness: 0.8;"></a-mixin>
-      </a-assets>
+</head>
 
-      <!-- Player Rig -->
-      <a-entity id="rig" position="0 0 0">
-        <a-camera id="camera" position="0 1.6 0" look-controls="pointerLockEnabled: false"></a-camera>
-        <a-entity id="leftHand" oculus-touch-controls="hand: left; model: true;" laser-controls="hand: left" raycaster="objects: .clickable; far: 10" quest-controls-handler></a-entity>
-        <a-entity id="rightHand" oculus-touch-controls="hand: right; model: true;" laser-controls="hand: right" raycaster="objects: .clickable; far: 10" quest-controls-handler></a-entity>
-      </a-entity>
+<body>
+    <a-scene environment="preset: contact; skyType: atmosphere; lighting: none;"
+        renderer="antialias: true; colorManagement: true;">
 
-      <!-- Lighting Setup -->
-      <a-ambient-light color="#FFFAF0" intensity="0.4"></a-ambient-light>
-      <!-- Living Room Light -->
-      <a-light type="point" color="#FFF2E6" intensity="0.6" position="-4 2.5 -1" distance="10"></a-light>
-      <!-- Bedroom 1 Light -->
-      <a-light type="point" color="#E6F2FF" intensity="0.5" position="3 2.5 -4" distance="7"></a-light>
-      <!-- Bedroom 2 Light -->
-      <a-light type="point" color="#FFF0F5" intensity="0.5" position="3 2.5 0" distance="7"></a-light>
-      <!-- Bedroom 3 Light -->
-      <a-light type="point" color="#F0FFF0" intensity="0.5" position="3 2.5 4" distance="7"></a-light>
-      <!-- Kitchen Light -->
-      <a-light type="point" color="#FFFFFF" intensity="0.6" position="-5 2.5 -4" distance="8"></a-light>
+        <!-- Asset Management -->
+        <a-assets>
+            <!-- Materials -->
+            <a-mixin id="wall-mat" material="color: #E8E5DF; roughness: 0.9;"></a-mixin>
+            <a-mixin id="floor-mat" material="color: #4A3C31; roughness: 0.5; metalness: 0.1;"></a-mixin>
+            <a-mixin id="ceiling-mat" material="color: #FAFAFA; roughness: 1.0; side: double;"></a-mixin>
+            <a-mixin id="wood-mat" material="color: #6B4E31; roughness: 0.7;"></a-mixin>
+            <a-mixin id="fabric-mat" material="color: #5C6E7D; roughness: 0.9;"></a-mixin>
+            <a-mixin id="accent-mat" material="color: #E6A861; roughness: 0.4;"></a-mixin>
+            <a-mixin id="glass-mat"
+                material="color: #A8D5E2; opacity: 0.4; transparent: true; roughness: 0.1; metalness: 0.8;"></a-mixin>
+            
+            <!-- External 3D Models -->
+            <a-asset-item id="autumn-house" src="autumn_house.glb"></a-asset-item>
+        </a-assets>
 
-      <!-- STRUCTURAL ELEMENTS -->
-      <!-- Main Floor -->
-      <a-plane position="0 0 0" rotation="-90 0 0" width="16" height="12" mixin="floor-mat"></a-plane>
-      <!-- Ceiling -->
-      <a-plane position="0 3 0" rotation="90 0 0" width="16" height="12" mixin="ceiling-mat"></a-plane>
+        <!-- Player Rig -->
+        <a-entity id="rig" position="0 0 0">
+            <a-camera id="camera" position="0 1.6 0" look-controls="pointerLockEnabled: false"></a-camera>
+            <a-entity id="leftHand" oculus-touch-controls="hand: left; model: true;" laser-controls="hand: left"
+                raycaster="objects: .clickable; far: 10" quest-controls-handler></a-entity>
+            <a-entity id="rightHand" oculus-touch-controls="hand: right; model: true;" laser-controls="hand: right"
+                raycaster="objects: .clickable; far: 10" quest-controls-handler></a-entity>
+        </a-entity>
 
-      <!-- Exterior Walls -->
-      <a-box position="0 1.5 -6" width="16" height="3" depth="0.2" mixin="wall-mat"></a-box> <!-- North -->
-      <a-box position="0 1.5 6" width="16" height="3" depth="0.2" mixin="wall-mat"></a-box>  <!-- South -->
-      <a-box position="-8 1.5 0" width="0.2" height="3" depth="12" mixin="wall-mat"></a-box> <!-- West -->
-      <a-box position="8 1.5 0" width="0.2" height="3" depth="12" mixin="wall-mat"></a-box>  <!-- East -->
+        <!-- Lighting Setup -->
+        <a-ambient-light color="#FFFAF0" intensity="0.4"></a-ambient-light>
+        <!-- Living Room Light -->
+        <a-light type="point" color="#FFF2E6" intensity="0.6" position="-4 2.5 -1" distance="10"></a-light>
+        <!-- Bedroom 1 Light -->
+        <a-light type="point" color="#E6F2FF" intensity="0.5" position="3 2.5 -4" distance="7"></a-light>
+        <!-- Bedroom 2 Light -->
+        <a-light type="point" color="#FFF0F5" intensity="0.5" position="3 2.5 0" distance="7"></a-light>
+        <!-- Bedroom 3 Light -->
+        <a-light type="point" color="#F0FFF0" intensity="0.5" position="3 2.5 4" distance="7"></a-light>
+        <!-- Kitchen Light -->
+        <a-light type="point" color="#FFFFFF" intensity="0.6" position="-5 2.5 -4" distance="8"></a-light>
 
-      <!-- INTERIOR WALLS & DOORWAYS -->
-      <!-- Corridor Wall (Separates Living Area from Bedrooms at x = 0) -->
-      <!-- Wall piece 1 (North to Bedroom 1 Door) -->
-      <a-box position="0 1.5 -5.25" width="0.2" height="3" depth="1.5" mixin="wall-mat"></a-box>
-      <!-- Lintel over Bedroom 1 Door -->
-      <a-box position="0 2.5 -4" width="0.2" height="1" depth="1" mixin="wall-mat"></a-box>
-      
-      <!-- Wall piece 2 (Between Bed 1 and Bed 2 Doors) -->
-      <a-box position="0 1.5 -2" width="0.2" height="3" depth="3" mixin="wall-mat"></a-box>
-      <!-- Lintel over Bedroom 2 Door -->
-      <a-box position="0 2.5 0" width="0.2" height="1" depth="1" mixin="wall-mat"></a-box>
-      
-      <!-- Wall piece 3 (Between Bed 2 and Bed 3 Doors) -->
-      <a-box position="0 1.5 2" width="0.2" height="3" depth="3" mixin="wall-mat"></a-box>
-      <!-- Lintel over Bedroom 3 Door -->
-      <a-box position="0 2.5 4" width="0.2" height="1" depth="1" mixin="wall-mat"></a-box>
-      
-      <!-- Wall piece 4 (Bedroom 3 Door to South) -->
-      <a-box position="0 1.5 5.25" width="0.2" height="3" depth="1.5" mixin="wall-mat"></a-box>
+        <!-- STRUCTURAL ELEMENTS -->
+        <!-- Main Floor -->
+        <a-plane position="0 0 0" rotation="-90 0 0" width="16" height="12" mixin="floor-mat"></a-plane>
+        <!-- Ceiling -->
+        <a-plane position="0 3 0" rotation="90 0 0" width="16" height="12" mixin="ceiling-mat"></a-plane>
 
-      <!-- Bedroom Dividers (Horizontal walls separating the 3 bedrooms) -->
-      <!-- Divider between Bed 1 and Bed 2 (at z = -2) -->
-      <a-box position="4 1.5 -2" width="8" height="3" depth="0.2" mixin="wall-mat"></a-box>
-      <!-- Divider between Bed 2 and Bed 3 (at z = 2) -->
-      <a-box position="4 1.5 2" width="8" height="3" depth="0.2" mixin="wall-mat"></a-box>
+        <!-- Exterior Walls -->
+        <a-box position="0 1.5 -6" width="16" height="3" depth="0.2" mixin="wall-mat"></a-box> <!-- North -->
+        <a-box position="0 1.5 6" width="16" height="3" depth="0.2" mixin="wall-mat"></a-box> <!-- South -->
+        <a-box position="-8 1.5 0" width="0.2" height="3" depth="12" mixin="wall-mat"></a-box> <!-- West -->
+        <a-box position="8 1.5 0" width="0.2" height="3" depth="12" mixin="wall-mat"></a-box> <!-- East -->
 
-      <!-- Open Kitchen/Living Divider (A small half-wall for the kitchen counter area) -->
-      <a-box position="-4 0.5 -3" width="4" height="1" depth="0.2" mixin="wall-mat"></a-box>
+        <!-- INTERIOR WALLS & DOORWAYS -->
+        <!-- Corridor Wall (Separates Living Area from Bedrooms at x = 0) -->
+        <!-- Wall piece 1 (North to Bedroom 1 Door) -->
+        <a-box position="0 1.5 -5.25" width="0.2" height="3" depth="1.5" mixin="wall-mat"></a-box>
+        <!-- Lintel over Bedroom 1 Door -->
+        <a-box position="0 2.5 -4" width="0.2" height="1" depth="1" mixin="wall-mat"></a-box>
 
-      <!-- FURNITURE & DETAILS -->
+        <!-- Wall piece 2 (Between Bed 1 and Bed 2 Doors) -->
+        <a-box position="0 1.5 -2" width="0.2" height="3" depth="3" mixin="wall-mat"></a-box>
+        <!-- Lintel over Bedroom 2 Door -->
+        <a-box position="0 2.5 0" width="0.2" height="1" depth="1" mixin="wall-mat"></a-box>
 
-      <!-- LIVING ROOM -->
-      <a-text value="Living Room" position="-4.5 2.5 1.9" rotation="0 180 0" align="center" color="#555" width="6"></a-text>
-      <!-- Rug -->
-      <a-plane position="-4.5 0.01 -1" rotation="-90 0 0" width="4" height="3" material="color: #D3D3D3; roughness: 1;"></a-plane>
-      <!-- Sofa Setup -->
-      <a-entity position="-6 0 -1">
-        <!-- Base -->
-        <a-box position="0 0.2 0" width="1" height="0.4" depth="2.4" mixin="fabric-mat"></a-box>
-        <!-- Backrest -->
-        <a-box position="-0.4 0.6 0" width="0.2" height="0.6" depth="2.4" mixin="fabric-mat"></a-box>
-        <!-- Armrests -->
-        <a-box position="0 0.5 1.1" width="1" height="0.4" depth="0.2" mixin="fabric-mat"></a-box>
-        <a-box position="0 0.5 -1.1" width="1" height="0.4" depth="0.2" mixin="fabric-mat"></a-box>
-      </a-entity>
-      <!-- Coffee Table -->
-      <a-box position="-4.5 0.3 -1" width="1" height="0.05" depth="1.5" mixin="glass-mat"></a-box>
-      <a-cylinder position="-4.5 0.15 -1" radius="0.4" height="0.3" mixin="wood-mat"></a-cylinder>
-      <!-- TV Unit -->
-      <a-box position="-2 0.3 -1" width="0.6" height="0.6" depth="2" mixin="wood-mat"></a-box>
-      <!-- TV Screen -->
-      <a-box position="-2.1 1.2 -1" width="0.1" height="1" depth="1.8" material="color: #111; roughness: 0.2; metalness: 0.8;"></a-box>
+        <!-- Wall piece 3 (Between Bed 2 and Bed 3 Doors) -->
+        <a-box position="0 1.5 2" width="0.2" height="3" depth="3" mixin="wall-mat"></a-box>
+        <!-- Lintel over Bedroom 3 Door -->
+        <a-box position="0 2.5 4" width="0.2" height="1" depth="1" mixin="wall-mat"></a-box>
 
-      <!-- KITCHEN -->
-      <a-text value="Kitchen" position="-5 2.5 -5.9" rotation="0 0 0" align="center" color="#555" width="5"></a-text>
-      <!-- Kitchen Counter L-Shape -->
-      <a-box position="-6.5 0.45 -5" width="3" height="0.9" depth="0.8" material="color: #2C3E50;"></a-box>
-      <a-box position="-7.6 0.45 -3.5" width="0.8" height="0.9" depth="2.2" material="color: #2C3E50;"></a-box>
-      <!-- Countertop -->
-      <a-box position="-6.5 0.9 -5" width="3.1" height="0.05" depth="0.9" material="color: #FDFDFD; roughness: 0.1;"></a-box>
-      <a-box position="-7.6 0.9 -3.5" width="0.9" height="0.05" depth="2.2" material="color: #FDFDFD; roughness: 0.1;"></a-box>
-      <!-- Fridge -->
-      <a-box position="-4.5 1 -5.4" width="0.8" height="2" depth="0.8" material="color: #BDC3C7; metalness: 0.5;"></a-box>
+        <!-- Wall piece 4 (Bedroom 3 Door to South) -->
+        <a-box position="0 1.5 5.25" width="0.2" height="3" depth="1.5" mixin="wall-mat"></a-box>
 
-      <!-- MASTER BEDROOM (BHK 1) -->
-      <!-- Bed -->
-      <a-entity position="3 0 -4.5">
-        <!-- Frame -->
-        <a-box position="0 0.2 0" width="2.2" height="0.4" depth="2.2" mixin="wood-mat"></a-box>
-        <!-- Mattress -->
-        <a-box position="0 0.45 0" width="2" height="0.2" depth="2" material="color: #FFF;"></a-box>
-        <!-- Pillows -->
-        <a-box position="-0.5 0.6 -0.7" width="0.6" height="0.1" depth="0.4" material="color: #FFF;"></a-box>
-        <a-box position="0.5 0.6 -0.7" width="0.6" height="0.1" depth="0.4" material="color: #FFF;"></a-box>
-        <!-- Blanket -->
-        <a-box position="0 0.46 0.4" width="2.02" height="0.22" depth="1.2" mixin="accent-mat"></a-box>
-      </a-entity>
-      <!-- Wardrobe -->
-      <a-box position="7 1.2 -4" width="0.8" height="2.4" depth="2" mixin="wood-mat"></a-box>
+        <!-- Bedroom Dividers (Horizontal walls separating the 3 bedrooms) -->
+        <!-- Divider between Bed 1 and Bed 2 (at z = -2) -->
+        <a-box position="4 1.5 -2" width="8" height="3" depth="0.2" mixin="wall-mat"></a-box>
+        <!-- Divider between Bed 2 and Bed 3 (at z = 2) -->
+        <a-box position="4 1.5 2" width="8" height="3" depth="0.2" mixin="wall-mat"></a-box>
 
-      <!-- BEDROOM 2 -->
-      <a-entity position="3 0 0">
-        <a-box position="0 0.2 0" width="2" height="0.4" depth="1.8" mixin="wood-mat"></a-box>
-        <a-box position="0 0.45 0" width="1.9" height="0.2" depth="1.7" material="color: #FFF;"></a-box>
-        <a-box position="-0.4 0.6 -0.6" width="0.6" height="0.1" depth="0.4" material="color: #FFF;"></a-box>
-        <a-box position="0 0.46 0.3" width="1.92" height="0.22" depth="1.1" material="color: #6C5CE7;"></a-box>
-      </a-entity>
-      <!-- Desk -->
-      <a-box position="6.5 0.4 -1" width="1" height="0.8" depth="0.6" mixin="wood-mat"></a-box>
+        <!-- Open Kitchen/Living Divider (A small half-wall for the kitchen counter area) -->
+        <a-box position="-4 0.5 -3" width="4" height="1" depth="0.2" mixin="wall-mat"></a-box>
 
-      <!-- BEDROOM 3 -->
-      <a-entity position="3 0 4">
-        <a-box position="0 0.2 0" width="2" height="0.4" depth="1.8" mixin="wood-mat"></a-box>
-        <a-box position="0 0.45 0" width="1.9" height="0.2" depth="1.7" material="color: #FFF;"></a-box>
-        <a-box position="-0.4 0.6 -0.6" width="0.6" height="0.1" depth="0.4" material="color: #FFF;"></a-box>
-        <a-box position="0 0.46 0.3" width="1.92" height="0.22" depth="1.1" material="color: #00B894;"></a-box>
-      </a-entity>
-      <!-- Bookshelf -->
-      <a-box position="7 1 4" width="0.6" height="2" depth="1.2" mixin="wood-mat"></a-box>
+        <!-- FURNITURE & DETAILS -->
 
-      <!-- NAVIGATION MARKERS -->
-      <a-cylinder class="clickable" position="-4.5 0.05 3" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
-      <a-cylinder class="clickable" position="-4.5 0.05 -1" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
-      <a-cylinder class="clickable" position="-4.5 0.05 -5" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
-      <a-cylinder class="clickable" position="3 0.05 -4.5" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
-      <a-cylinder class="clickable" position="3 0.05 0" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
-      <a-cylinder class="clickable" position="3 0.05 4.5" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
+        <!-- LIVING ROOM -->
+        <a-text value="Living Room" position="-4.5 2.5 1.9" rotation="0 180 0" align="center" color="#555"
+            width="6"></a-text>
+        <!-- Rug -->
+        <a-plane position="-4.5 0.01 -1" rotation="-90 0 0" width="4" height="3"
+            material="color: #D3D3D3; roughness: 1;"></a-plane>
+        <!-- Sofa Setup -->
+        <a-entity position="-6 0 -1">
+            <!-- Base -->
+            <a-box position="0 0.2 0" width="1" height="0.4" depth="2.4" mixin="fabric-mat"></a-box>
+            <!-- Backrest -->
+            <a-box position="-0.4 0.6 0" width="0.2" height="0.6" depth="2.4" mixin="fabric-mat"></a-box>
+            <!-- Armrests -->
+            <a-box position="0 0.5 1.1" width="1" height="0.4" depth="0.2" mixin="fabric-mat"></a-box>
+            <a-box position="0 0.5 -1.1" width="1" height="0.4" depth="0.2" mixin="fabric-mat"></a-box>
+        </a-entity>
+        <!-- Coffee Table -->
+        <a-box position="-4.5 0.3 -1" width="1" height="0.05" depth="1.5" mixin="glass-mat"></a-box>
+        <a-cylinder position="-4.5 0.15 -1" radius="0.4" height="0.3" mixin="wood-mat"></a-cylinder>
+        <!-- TV Unit -->
+        <a-box position="-2 0.3 -1" width="0.6" height="0.6" depth="2" mixin="wood-mat"></a-box>
+        <!-- TV Screen -->
+        <a-box position="-2.1 1.2 -1" width="0.1" height="1" depth="1.8"
+            material="color: #111; roughness: 0.2; metalness: 0.8;"></a-box>
+
+        <!-- KITCHEN -->
+        <a-text value="Kitchen" position="-5 2.5 -5.9" rotation="0 0 0" align="center" color="#555" width="5"></a-text>
+        <!-- Kitchen Counter L-Shape -->
+        <a-box position="-6.5 0.45 -5" width="3" height="0.9" depth="0.8" material="color: #2C3E50;"></a-box>
+        <a-box position="-7.6 0.45 -3.5" width="0.8" height="0.9" depth="2.2" material="color: #2C3E50;"></a-box>
+        <!-- Countertop -->
+        <a-box position="-6.5 0.9 -5" width="3.1" height="0.05" depth="0.9"
+            material="color: #FDFDFD; roughness: 0.1;"></a-box>
+        <a-box position="-7.6 0.9 -3.5" width="0.9" height="0.05" depth="2.2"
+            material="color: #FDFDFD; roughness: 0.1;"></a-box>
+        <!-- Fridge -->
+        <a-box position="-4.5 1 -5.4" width="0.8" height="2" depth="0.8"
+            material="color: #BDC3C7; metalness: 0.5;"></a-box>
+
+        <!-- MASTER BEDROOM (BHK 1) -->
+        <!-- Bed -->
+        <a-entity position="3 0 -4.5">
+            <!-- Frame -->
+            <a-box position="0 0.2 0" width="2.2" height="0.4" depth="2.2" mixin="wood-mat"></a-box>
+            <!-- Mattress -->
+            <a-box position="0 0.45 0" width="2" height="0.2" depth="2" material="color: #FFF;"></a-box>
+            <!-- Pillows -->
+            <a-box position="-0.5 0.6 -0.7" width="0.6" height="0.1" depth="0.4" material="color: #FFF;"></a-box>
+            <a-box position="0.5 0.6 -0.7" width="0.6" height="0.1" depth="0.4" material="color: #FFF;"></a-box>
+            <!-- Blanket -->
+            <a-box position="0 0.46 0.4" width="2.02" height="0.22" depth="1.2" mixin="accent-mat"></a-box>
+        </a-entity>
+        <!-- Wardrobe -->
+        <a-box position="7 1.2 -4" width="0.8" height="2.4" depth="2" mixin="wood-mat"></a-box>
+
+        <!-- BEDROOM 2 -->
+        <a-entity position="3 0 0">
+            <a-box position="0 0.2 0" width="2" height="0.4" depth="1.8" mixin="wood-mat"></a-box>
+            <a-box position="0 0.45 0" width="1.9" height="0.2" depth="1.7" material="color: #FFF;"></a-box>
+            <a-box position="-0.4 0.6 -0.6" width="0.6" height="0.1" depth="0.4" material="color: #FFF;"></a-box>
+            <a-box position="0 0.46 0.3" width="1.92" height="0.22" depth="1.1" material="color: #6C5CE7;"></a-box>
+        </a-entity>
+        <!-- Desk -->
+        <a-box position="6.5 0.4 -1" width="1" height="0.8" depth="0.6" mixin="wood-mat"></a-box>
+
+        <!-- BEDROOM 3 -->
+        <a-entity position="3 0 4">
+            <a-box position="0 0.2 0" width="2" height="0.4" depth="1.8" mixin="wood-mat"></a-box>
+            <a-box position="0 0.45 0" width="1.9" height="0.2" depth="1.7" material="color: #FFF;"></a-box>
+            <a-box position="-0.4 0.6 -0.6" width="0.6" height="0.1" depth="0.4" material="color: #FFF;"></a-box>
+            <a-box position="0 0.46 0.3" width="1.92" height="0.22" depth="1.1" material="color: #00B894;"></a-box>
+        </a-entity>
+        <!-- Bookshelf -->
+        <a-box position="7 1 4" width="0.6" height="2" depth="1.2" mixin="wood-mat"></a-box>
+
+        <!-- NAVIGATION MARKERS -->
+        <a-cylinder class="clickable" position="-4.5 0.05 3" radius="0.3" height="0.02" color="#F39C12"
+            opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" position="-4.5 0.05 -1" radius="0.3" height="0.02" color="#F39C12"
+            opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" position="-4.5 0.05 -5" radius="0.3" height="0.02" color="#F39C12"
+            opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" position="3 0.05 -4.5" radius="0.3" height="0.02" color="#F39C12"
+            opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" position="3 0.05 0" radius="0.3" height="0.02" color="#F39C12"
+            opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" position="3 0.05 4.5" radius="0.3" height="0.02" color="#F39C12"
+            opacity="0.6"></a-cylinder>
+
+        <!-- EXTERNAL ENVIRONMENT & MODELS -->
+        <!-- Autumn House (Placed next to the flat on the East side) -->
+        <a-entity gltf-model="#autumn-house" 
+                  position="20 0 0" 
+                  scale="1 1 1"
+                  rotation="0 -90 0">
+        </a-entity>
 
     </a-scene>
-  </body>
+</body>
+
 </html>
