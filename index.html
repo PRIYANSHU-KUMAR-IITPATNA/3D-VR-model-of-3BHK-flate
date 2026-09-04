@@ -32,7 +32,7 @@
 </head>
 
 <body>
-    <a-scene environment="preset: contact; skyType: atmosphere; lighting: none;"
+    <a-scene environment="preset: contact; skyType: atmosphere; lighting: none; ground: none;"
         renderer="antialias: true; colorManagement: true;">
 
         <!-- Asset Management -->
@@ -206,6 +206,9 @@
             opacity="0.6"></a-cylinder>
 
         <!-- EXTERNAL ENVIRONMENT & MODELS -->
+        <!-- Grass Ground -->
+        <a-plane position="0 -0.02 0" rotation="-90 0 0" width="300" height="300" material="color: #4CAF50; roughness: 1;"></a-plane>
+
         <!-- Autumn House (Placed next to the flat on the East side) -->
         <a-entity gltf-model="#autumn-house" 
                   position="20 0 0" 
