@@ -32,7 +32,7 @@
 </head>
 
 <body>
-    <a-scene environment="preset: contact; skyType: atmosphere; lighting: none; ground: none;"
+    <a-scene environment="preset: forest; skyType: atmosphere; lighting: none; ground: none;"
         renderer="antialias: true; colorManagement: true;">
 
         <!-- Asset Management -->
@@ -46,9 +46,10 @@
             <a-mixin id="accent-mat" material="color: #E6A861; roughness: 0.4;"></a-mixin>
             <a-mixin id="glass-mat"
                 material="color: #A8D5E2; opacity: 0.4; transparent: true; roughness: 0.1; metalness: 0.8;"></a-mixin>
-            
+
             <!-- External 3D Models -->
             <a-asset-item id="autumn-house" src="autumn_house.glb"></a-asset-item>
+            <a-asset-item id="wooden-box" src="wooden_box.glb"></a-asset-item>
         </a-assets>
 
         <!-- Player Rig -->
@@ -62,6 +63,8 @@
 
         <!-- Lighting Setup -->
         <a-ambient-light color="#FFFAF0" intensity="0.4"></a-ambient-light>
+        <!-- Exterior Sun Light -->
+        <a-light type="directional" color="#FFF" intensity="1.0" position="-1 2 1"></a-light>
         <!-- Living Room Light -->
         <a-light type="point" color="#FFF2E6" intensity="0.6" position="-4 2.5 -1" distance="10"></a-light>
         <!-- Bedroom 1 Light -->
@@ -154,6 +157,8 @@
         <!-- Fridge -->
         <a-box position="-4.5 1 -5.4" width="0.8" height="2" depth="0.8"
             material="color: #BDC3C7; metalness: 0.5;"></a-box>
+        <!-- Wooden Box -->
+        <a-entity gltf-model="#wooden-box" position="-6.5 1 -4.5" scale="1 1 1"></a-entity>
 
         <!-- MASTER BEDROOM (BHK 1) -->
         <!-- Bed -->
@@ -207,13 +212,11 @@
 
         <!-- EXTERNAL ENVIRONMENT & MODELS -->
         <!-- Grass Ground -->
-        <a-plane position="0 -0.02 0" rotation="-90 0 0" width="300" height="300" material="color: #4CAF50; roughness: 1;"></a-plane>
+        <a-plane position="0 -0.02 0" rotation="-90 0 0" width="300" height="300"
+            material="color: #4CAF50; roughness: 1;"></a-plane>
 
         <!-- Autumn House (Placed next to the flat on the East side) -->
-        <a-entity gltf-model="#autumn-house" 
-                  position="20 0 0" 
-                  scale="1 1 1"
-                  rotation="0 -90 0">
+        <a-entity gltf-model="#autumn-house" position="20 0 0" scale="1 1 1" rotation="0 -90 0">
         </a-entity>
 
     </a-scene>
