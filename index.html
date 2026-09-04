@@ -29,7 +29,7 @@
     </script>
   </head>
   <body>
-    <a-scene environment="preset: apartment; skyType: atmosphere; lighting: low;" renderer="antialias: true;">
+    <a-scene environment="preset: default; skyType: atmosphere; lighting: low;" renderer="antialias: true;">
       
       <!-- Asset Management -->
       <a-assets>
@@ -42,7 +42,7 @@
       </a-assets>
 
       <!-- Player Rig & Meta Quest 3S Controller Setup -->
-      <a-entity id="rig" position="0 0 8">
+      <a-entity id="rig" position="0 0 0">
         <a-camera id="camera" position="0 1.6 0" look-controls="pointerLockEnabled: false"></a-camera>
         
         <!-- Quest 3S Left Controller -->
