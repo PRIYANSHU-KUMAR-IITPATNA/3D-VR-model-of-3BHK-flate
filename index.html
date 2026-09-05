@@ -16,7 +16,7 @@
         AFRAME.registerComponent('quest-controls-handler', {
             init: function () {
                 var el = this.el;
-                el.addEventListener('triggerdown', function (evt) {});
+                el.addEventListener('triggerdown', function (evt) { });
             }
         });
 
@@ -26,7 +26,7 @@
                 this.el.addEventListener('click', () => {
                     const rig = document.querySelector('#rig');
                     const pos = this.el.getAttribute('position');
-                    rig.setAttribute('position', {x: pos.x, y: rig.getAttribute('position').y, z: pos.z});
+                    rig.setAttribute('position', { x: pos.x, y: rig.getAttribute('position').y, z: pos.z });
                 });
             }
         });
@@ -223,19 +223,30 @@
         <a-box position="7 1 4" width="0.6" height="2" depth="1.2" mixin="wood-mat"></a-box>
 
         <!-- NAVIGATION MARKERS -->
-        <a-cylinder class="clickable" teleport-marker position="-4.5 0.05 3" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
-        <a-cylinder class="clickable" teleport-marker position="-4.5 0.05 -1" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
-        <a-cylinder class="clickable" teleport-marker position="-4.5 0.05 -5" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
-        <a-cylinder class="clickable" teleport-marker position="3 0.05 -4.5" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
-        <a-cylinder class="clickable" teleport-marker position="3 0.05 0" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
-        <a-cylinder class="clickable" teleport-marker position="3 0.05 4.5" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" teleport-marker position="-4.5 0.05 3" radius="0.3" height="0.02" color="#F39C12"
+            opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" teleport-marker position="-4.5 0.05 -1" radius="0.3" height="0.02" color="#F39C12"
+            opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" teleport-marker position="-4.5 0.05 -5" radius="0.3" height="0.02" color="#F39C12"
+            opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" teleport-marker position="3 0.05 -4.5" radius="0.3" height="0.02" color="#F39C12"
+            opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" teleport-marker position="3 0.05 0" radius="0.3" height="0.02" color="#F39C12"
+            opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" teleport-marker position="3 0.05 4.5" radius="0.3" height="0.02" color="#F39C12"
+            opacity="0.6"></a-cylinder>
 
         <!-- Autumn House Navigation Markers -->
-        <a-cylinder class="clickable" teleport-marker position="10 0.05 0" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
-        <a-cylinder class="clickable" teleport-marker position="15 0.05 0" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
-        <a-cylinder class="clickable" teleport-marker position="18 0.05 0" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
-        <a-cylinder class="clickable" teleport-marker position="20 0.05 0" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
-        <a-cylinder class="clickable" teleport-marker position="22 0.05 1" radius="0.3" height="0.02" color="#F39C12" opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" teleport-marker position="10 0.05 0" radius="0.3" height="0.02" color="#F39C12"
+            opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" teleport-marker position="15 0.05 0" radius="0.3" height="0.02" color="#F39C12"
+            opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" teleport-marker position="18 0.05 0" radius="0.3" height="0.02" color="#F39C12"
+            opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" teleport-marker position="20 0.05 0" radius="0.3" height="0.02" color="#F39C12"
+            opacity="0.6"></a-cylinder>
+        <a-cylinder class="clickable" teleport-marker position="22 0.05 1" radius="0.3" height="0.02" color="#F39C12"
+            opacity="0.6"></a-cylinder>
 
         <!-- EXTERNAL ENVIRONMENT & MODELS -->
         <!-- Grass Ground -->
@@ -248,29 +259,105 @@
 
         <!-- Autumn House Aesthetic Interior Setup -->
         <a-entity id="autumn-interior" position="20 0 0">
-            <!-- Warm Interior Lights to fix dark ceiling/models -->
-            <a-light type="point" color="#FFAA55" intensity="1.5" position="0 2.5 1" distance="15"></a-light>
-            <a-light type="point" color="#FFDAB9" intensity="1.0" position="0 2.5 4" distance="10"></a-light>
-            
-            <!-- Aesthetic Area Rug -->
-            <a-plane position="0 0.02 1" rotation="-90 0 0" width="5" height="7" material="color: #C0392B; roughness: 1;"></a-plane>
-            <a-plane position="0 0.03 1" rotation="-90 0 0" width="4.5" height="6.5" material="color: #E74C3C; roughness: 1;"></a-plane>
-            
-            <!-- Glowing Accent Lamps (Spheres) -->
-            <a-sphere position="-1.5 0.3 -1" radius="0.3" material="color: #FFB6C1; emissive: #FF69B4; emissiveIntensity: 0.8"></a-sphere>
-            <a-sphere position="1.5 0.2 2.5" radius="0.2" material="color: #87CEFA; emissive: #00BFFF; emissiveIntensity: 0.7"></a-sphere>
+            <!-- Improved Warm Interior Lighting -->
+            <a-light type="point" color="#FFDAB9" intensity="1.2" position="0 3 1" distance="15"></a-light>
+            <a-light type="point" color="#FFF5E6" intensity="0.8" position="2 2 3" distance="10"></a-light>
+            <a-light type="point" color="#FFE4B5" intensity="0.8" position="-2 2 3" distance="10"></a-light>
+            <a-light type="ambient" color="#332211" intensity="0.3"></a-light>
 
-            <!-- Minimalist Coffee Table Setup -->
-            <a-cylinder position="0 0.4 1" radius="0.9" height="0.05" material="color: #FFF; metalness: 0.8; roughness: 0.1"></a-cylinder>
-            <a-cylinder position="0 0.2 1" radius="0.2" height="0.4" mixin="wood-mat"></a-cylinder>
-            
-            <!-- Aesthetic Floating Fireflies/Dust -->
-            <a-entity position="0 1 1">
-                <a-sphere position="0.8 1 -1" radius="0.03" material="color: #FFF; emissive: #FFD700; emissiveIntensity: 1"></a-sphere>
-                <a-sphere position="-1 0.5 1.5" radius="0.02" material="color: #FFF; emissive: #FFD700; emissiveIntensity: 1"></a-sphere>
-                <a-sphere position="1.2 1.5 0.5" radius="0.02" material="color: #FFF; emissive: #FFD700; emissiveIntensity: 1"></a-sphere>
-                <a-sphere position="-0.5 2 2" radius="0.03" material="color: #FFF; emissive: #FFD700; emissiveIntensity: 1"></a-sphere>
-                <a-sphere position="0.2 0.8 -0.5" radius="0.02" material="color: #FFF; emissive: #FFD700; emissiveIntensity: 1"></a-sphere>
+            <!-- Plush Layered Area Rug -->
+            <a-plane position="0 0.02 1.5" rotation="-90 0 0" width="6" height="5"
+                material="color: #2c3e50; roughness: 0.9;"></a-plane>
+            <a-plane position="0 0.03 1.5" rotation="-90 0 0" width="5.5" height="4.5"
+                material="color: #34495e; roughness: 1;"></a-plane>
+
+            <!-- Modern Sofa -->
+            <a-entity position="0 0 -0.5">
+                <!-- Base -->
+                <a-box position="0 0.2 0" width="3.5" height="0.4" depth="1" mixin="fabric-mat"
+                    material="color: #ecf0f1;"></a-box>
+                <!-- Backrest -->
+                <a-box position="0 0.6 -0.4" width="3.5" height="0.8" depth="0.2" mixin="fabric-mat"
+                    material="color: #ecf0f1;"></a-box>
+                <!-- Armrests -->
+                <a-box position="-1.65 0.5 0" width="0.2" height="0.6" depth="1" mixin="fabric-mat"
+                    material="color: #bdc3c7;"></a-box>
+                <a-box position="1.65 0.5 0" width="0.2" height="0.6" depth="1" mixin="fabric-mat"
+                    material="color: #bdc3c7;"></a-box>
+                <!-- Throw Pillows -->
+                <a-box position="-1 0.5 -0.2" width="0.4" height="0.4" depth="0.2" rotation="10 20 0"
+                    material="color: #e74c3c; roughness: 0.8;"></a-box>
+                <a-box position="1 0.5 -0.2" width="0.4" height="0.4" depth="0.2" rotation="10 -20 0"
+                    material="color: #f1c40f; roughness: 0.8;"></a-box>
+            </a-entity>
+
+            <!-- Armchairs -->
+            <a-entity position="-2 0 1.5" rotation="0 90 0">
+                <a-box position="0 0.2 0" width="1" height="0.4" depth="1" mixin="fabric-mat"
+                    material="color: #e67e22;"></a-box>
+                <a-box position="0 0.6 -0.4" width="1" height="0.6" depth="0.2" mixin="fabric-mat"
+                    material="color: #e67e22;"></a-box>
+            </a-entity>
+            <a-entity position="2 0 1.5" rotation="0 -90 0">
+                <a-box position="0 0.2 0" width="1" height="0.4" depth="1" mixin="fabric-mat"
+                    material="color: #e67e22;"></a-box>
+                <a-box position="0 0.6 -0.4" width="1" height="0.6" depth="0.2" mixin="fabric-mat"
+                    material="color: #e67e22;"></a-box>
+            </a-entity>
+
+            <!-- Elegant Glass Coffee Table -->
+            <a-entity position="0 0 1.5">
+                <a-cylinder position="0 0.4 0" radius="1.2" height="0.05"
+                    material="color: #FFF; metalness: 0.3; roughness: 0.1; opacity: 0.7; transparent: true"></a-cylinder>
+                <a-cylinder position="0 0.2 0" radius="0.3" height="0.4" mixin="wood-mat"></a-cylinder>
+                <!-- Table Decor (Books, Vase) -->
+                <a-box position="-0.3 0.45 0.2" width="0.4" height="0.05" depth="0.3"
+                    material="color: #3498db;"></a-box>
+                <a-box position="-0.3 0.5 0.2" width="0.35" height="0.05" depth="0.25"
+                    material="color: #9b59b6;"></a-box>
+                <a-cylinder position="0.4 0.5 -0.2" radius="0.1" height="0.2" material="color: #ffffff;"></a-cylinder>
+                <a-sphere position="0.4 0.65 -0.2" radius="0.15" material="color: #2ecc71;"></a-sphere>
+            </a-entity>
+
+            <!-- Tall Potted Plant -->
+            <a-entity position="-2.5 0 -0.5">
+                <a-cylinder position="0 0.3 0" radius="0.2" height="0.6" material="color: #bdc3c7;"></a-cylinder>
+                <a-sphere position="0 1.2 0" radius="0.5" material="color: #27ae60; roughness: 1;"></a-sphere>
+                <a-sphere position="0.2 0.8 0.2" radius="0.4" material="color: #2ecc71; roughness: 1;"></a-sphere>
+                <a-sphere position="-0.2 0.9 -0.2" radius="0.4" material="color: #2ecc71; roughness: 1;"></a-sphere>
+            </a-entity>
+
+            <!-- Floor Lamp -->
+            <a-entity position="2.5 0 -0.5">
+                <a-cylinder position="0 0.8 0" radius="0.02" height="1.6"
+                    material="color: #333; metalness: 0.8;"></a-cylinder>
+                <a-cylinder position="0 0.05 0" radius="0.2" height="0.1"
+                    material="color: #333; metalness: 0.8;"></a-cylinder>
+                <a-cone position="0 1.6 0" radius-bottom="0.2" radius-top="0.05" height="0.4"
+                    material="color: #f1c40f; emissive: #f39c12; emissiveIntensity: 0.5;" rotation="0 0 0"
+                    open-ended="true"></a-cone>
+                <a-light type="spot" color="#FFF5E6" intensity="1.5" position="0 1.5 0" rotation="-90 0 0"
+                    angle="45"></a-light>
+            </a-entity>
+
+            <!-- Aesthetic Floating Fireflies/Dust (Retained and enhanced) -->
+            <a-entity position="0 1 1.5"
+                animation="property: rotation; to: 0 360 0; loop: true; dur: 20000; easing: linear">
+                <a-sphere position="1.5 1 -1.5" radius="0.02"
+                    material="color: #FFF; emissive: #FFD700; emissiveIntensity: 1"
+                    animation="property: position; dir: alternate; dur: 2000; to: 1.5 1.2 -1.5; loop: true"></a-sphere>
+                <a-sphere position="-1.5 0.5 1.5" radius="0.015"
+                    material="color: #FFF; emissive: #FFD700; emissiveIntensity: 1"
+                    animation="property: position; dir: alternate; dur: 3000; to: -1.5 0.7 1.5; loop: true"></a-sphere>
+                <a-sphere position="1.2 1.5 0.5" radius="0.02"
+                    material="color: #FFF; emissive: #FFD700; emissiveIntensity: 1"
+                    animation="property: position; dir: alternate; dur: 2500; to: 1.2 1.8 0.5; loop: true"></a-sphere>
+                <a-sphere position="-0.5 2 1" radius="0.025"
+                    material="color: #FFF; emissive: #FFD700; emissiveIntensity: 1"
+                    animation="property: position; dir: alternate; dur: 3500; to: -0.5 2.2 1; loop: true"></a-sphere>
+                <a-sphere position="0.5 0.8 -1" radius="0.015"
+                    material="color: #FFF; emissive: #FFD700; emissiveIntensity: 1"
+                    animation="property: position; dir: alternate; dur: 1500; to: 0.5 1 -1; loop: true"></a-sphere>
             </a-entity>
         </a-entity>
 
